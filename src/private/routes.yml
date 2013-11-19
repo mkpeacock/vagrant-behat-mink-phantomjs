@@ -1,0 +1,43 @@
+home:
+  pattern: /
+  defaults: {class: '\Demo\Pages\Controllers\StaticPagesController', method: 'viewHomePage'}
+
+register_page:
+  pattern: /register
+  defaults: {class: '\Demo\Users\Controllers\RegistrationController', method: 'registrationPage'}
+  requirements:
+    _method: GET
+
+register:
+  pattern: /register
+  defaults: {class: '\Demo\Users\Controllers\RegistrationController', method: 'processRegistration'}
+  requirements:
+    _method: POST
+
+logout:
+  pattern: /logout
+  defaults: {class: '\Demo\Users\Controllers\LogoutController', method: 'logout', logged_in: true}
+
+login_form:
+  pattern: /login
+  defaults: {class: '\Demo\Users\Controllers\LoginController', method: 'loginForm'}
+  requirements:
+    _method: GET
+
+content_view:
+  pattern: /content/view/{id}
+  defaults: {class: '\Demo\Content\Controllers\ViewContent', method: 'viewContent'}
+  requirements:
+    _method: GET
+
+create_content_form:
+  pattern: /content/create
+  defaults: {class: '\Demo\Content\Controllers\ManageContent', method: 'createContentForm', logged_in: true}
+  requirements:
+    _method: GET
+
+create_content:
+  pattern: /content/create
+  defaults: {class: '\Demo\Content\Controllers\ManageContent', method: 'createContent', logged_in: true}
+  requirements:
+    _method: POST

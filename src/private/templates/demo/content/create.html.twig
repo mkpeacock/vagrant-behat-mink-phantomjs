@@ -1,0 +1,20 @@
+{% extends 'demo/base.html.twig' %}
+{% block content %}
+    <h1>Create content</h1>
+    {% if form_helper.hasErrors == true %}
+        <p>
+          There were some errors with your attempt to create content. Please try again.
+        </p>
+    {% endif %}
+    <form action="/content/create" method="post">
+        <input type="text" name="content_heading" placeholder="Heading" value="{{form_helper.getDataForField('content_heading') is not null ? form_helper.getDataForField('content_heading') : ''}}" /> <br />
+        {% for error in form_helper.getErrorsForField('content_heading') %}
+            <p>{{error}}&nbsp;</p>
+        {% endfor %}
+        <textarea name="content_content">{{form_helper.getDataForField('content_content') is not null ? form_helper.getDataForField('content_content') : ''}}</textarea><br />
+        {% for error in form_helper.getErrorsForField('content_content') %}
+            <p>{{error}}&nbsp;</p>
+        {% endfor %}
+        <input type="submit" value="Create content">
+    </form>
+{% endblock %}

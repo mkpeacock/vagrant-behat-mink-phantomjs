@@ -1,0 +1,45 @@
+server {
+
+        listen   80; ## listen for ipv4; this line is default and implied
+        listen   [::]:80 default ipv6only=on; ## listen for ipv6
+
+        root /var/www/repo/src/public;
+        index index.php index.html index.htm;
+
+        # Make site accessible from http://localhost/
+        server_name _;
+        sendfile off;
+
+        location / {
+                try_files $uri $uri/ /index.php;
+        }
+
+        # redirect server error pages to the static page /50x.html
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+                root /usr/share/nginx/www;
+        }
+
+        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+        location ~ \.php$ {
+                fastcgi_param PHP_VALUE "error_log=/var/log/nginx/php_error.log";
+                fastcgi_param HTTP_ACCEPT "$http_accept";
+                try_files $uri =404;
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                fastcgi_pass unix:/var/run/php5-fpm.sock; #sock is now default for php-fpm, didn't need to configure php5-fpm config
+                    fastcgi_index index.php;
+                include fastcgi_params;
+        }
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        location ~ /\.ht {
+                deny all;
+        }
+
+        location ~* \.(jpg|jpeg|gif|css|png|js|ico|html)$ {
+                access_log off;
+                expires max;
+        }
+}

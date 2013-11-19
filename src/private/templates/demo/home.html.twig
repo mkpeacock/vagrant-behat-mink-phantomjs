@@ -1,0 +1,11 @@
+{% extends 'demo/base.html.twig' %}
+{% block content %}
+    <h1>Home!</h1>
+    {% if current_user is not null %}
+    <p>Welcome {{current_user.getName}}</p>
+        <ul>
+            <li><a href="/content/create">Create content</a></li>
+            <li>Pay for order</li>
+        </ul>
+    {% endif %}
+{% endblock %}

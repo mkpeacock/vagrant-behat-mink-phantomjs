@@ -1,0 +1,32 @@
+{% extends 'demo/base.html.twig' %}
+{% block content %}
+    <h1>Register for Demo</h1>
+    {% if form_helper.hasErrors == true %}
+        <p>
+          There were some errors with your attempt to register. Please try again.
+        </p>
+    {% endif %}
+    <form action="/register" method="post">
+        <input type="text" name="user_name" placeholder="Name" value="{{form_helper.getDataForField('user_name') is not null ? form_helper.getDataForField('user_name') : ''}}" /> <br />
+        {% for error in form_helper.getErrorsForField('user_name') %}
+            <p>{{error}}&nbsp;</p>
+        {% endfor %}
+        <input type="text" name="user_username" placeholder="Username" value="{{form_helper.getDataForField('user_username') is not null ? form_helper.getDataForField('user_username') : ''}}" /> <br />
+        {% for error in form_helper.getErrorsForField('user_username') %}
+            <p>{{error}}&nbsp;</p>
+        {% endfor %}
+        <input type="password" name="user_password" placeholder="Password" value="{{form_helper.getDataForField('user_password') is not null ? form_helper.getDataForField('user_password') : ''}}" /> <br />
+        {% for error in form_helper.getErrorsForField('user_password') %}
+            <p>{{error}}&nbsp;</p>
+        {% endfor %}
+        <input type="password" name="user_password_confirm" placeholder="Password confirmation" value="{{form_helper.getDataForField('user_password') is not null ? form_helper.getDataForField('user_password_confirm') : ''}}" /> <br />
+        {% for error in form_helper.getErrorsForField('user_password_confirm') %}
+            <p>{{error}}&nbsp;</p>
+        {% endfor %}
+        <input type="email" name="user_email" placeholder="Email Address" value="{{form_helper.getDataForField('user_email') is not null ? form_helper.getDataForField('user_email') : ''}}" /> <br />
+        {% for error in form_helper.getErrorsForField('user_email') %}
+            <p>{{error}}&nbsp;</p>
+        {% endfor %}
+        <input type="submit" value="Register">
+    </form>
+{% endblock %}
